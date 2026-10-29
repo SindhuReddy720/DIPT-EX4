@@ -76,7 +76,108 @@ Read the input image in color mode.
 ---
 
 ##  Program 
+```
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
 
+# Step 1: Load the image
+image_path = r"C:\Users\admin\little-cat-sitting-grass.jpg"
+image = cv2.imread(image_path)
+
+if image is None:
+    print("Error: Image not found")
+else:
+    # Step 2: Display Original Image
+    plt.figure()
+    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    plt.title("Original Image")
+    plt.axis('off')
+    plt.show()
+
+    # Step 3: Image Translation
+    tx, ty = 100, 50
+    M_translation = np.float32([
+        [1, 0, tx],
+        [0, 1, ty]
+    ])
+
+    translated_image = cv2.warpAffine(
+        image, M_translation,
+        (image.shape[1], image.shape[0])
+    )
+
+    plt.figure()
+    plt.imshow(cv2.cvtColor(translated_image, cv2.COLOR_BGR2RGB))
+    plt.title("Translated Image")
+    plt.axis('off')
+    plt.show()
+
+    # Step 4: Image Scaling
+    scaled_image = cv2.resize(
+        image, None, fx=2.0, fy=2.0,
+        interpolation=cv2.INTER_LINEAR
+    )
+
+    plt.figure()
+    plt.imshow(cv2.cvtColor(scaled_image, cv2.COLOR_BGR2RGB))
+    plt.title("Scaled Image")
+    plt.axis('off')
+    plt.show()
+
+    # Step 5: Image Shearing
+    shear_matrix = np.float32([
+        [1, 0.5, 0],
+        [0.5, 1, 0]
+    ])
+
+    sheared_image = cv2.warpAffine(
+        image, shear_matrix,
+        (image.shape[1], image.shape[0])
+    )
+
+    plt.figure()
+    plt.imshow(cv2.cvtColor(sheared_image, cv2.COLOR_BGR2RGB))
+    plt.title("Sheared Image")
+    plt.axis('off')
+    plt.show()
+
+    # Step 6: Image Reflection
+    reflected_image = cv2.flip(image, 1)
+
+    plt.figure()
+    plt.imshow(cv2.cvtColor(reflected_image, cv2.COLOR_BGR2RGB))
+    plt.title("Reflected Image")
+    plt.axis('off')
+    plt.show()
+
+    # Step 7: Image Rotation
+    height, width = image.shape[:2]
+    angle = 45
+    center = (width // 2, height // 2)
+
+    M_rotation = cv2.getRotationMatrix2D(center, angle, 1)
+
+    rotated_image = cv2.warpAffine(
+        image, M_rotation, (width, height)
+    )
+
+    plt.figure()
+    plt.imshow(cv2.cvtColor(rotated_image, cv2.COLOR_BGR2RGB))
+    plt.title("Rotated Image")
+    plt.axis('off')
+    plt.show()
+
+    # Step 8: Image Cropping
+    x, y, w, h = 100, 100, 200, 150
+    cropped_image = image[y:y+h, x:x+w]
+
+    plt.figure()
+    plt.imshow(cv2.cvtColor(cropped_image, cv2.COLOR_BGR2RGB))
+    plt.title("Cropped Image")
+    plt.axis('off')
+    plt.show()
+```
 ---
 
 ##  Output
@@ -104,7 +205,21 @@ Read the input image in color mode.
 ### Image Rotation
 - Original image is displayed  
 - 45° rotated image is displayed  
-- 90° rotated image is displayed  
+- 90° rotated image is displayed
+
+<img width="667" height="462" alt="image" src="https://github.com/user-attachments/assets/59271320-4d25-4a6d-bb0a-f947c96ebe6d" />
+
+<img width="653" height="471" alt="image" src="https://github.com/user-attachments/assets/dae600a6-6361-4157-bef9-610e19a5a06d" />
+
+<img width="650" height="468" alt="image" src="https://github.com/user-attachments/assets/cd4338b4-a07f-44f5-abef-4037ffe8e5fc" />
+
+<img width="648" height="471" alt="image" src="https://github.com/user-attachments/assets/68d6ad62-aefa-4cdc-adc0-ec713cb6b765" />
+
+<img width="667" height="460" alt="image" src="https://github.com/user-attachments/assets/03e46b19-cfc2-4b43-98ce-295c2e11039a" />
+
+<img width="671" height="473" alt="Screenshot 2026-10-29 222032" src="https://github.com/user-attachments/assets/1c46453c-0269-464f-b59f-27b33e88168b" />
+
+<img width="653" height="517" alt="Screenshot 2026-10-29 222043" src="https://github.com/user-attachments/assets/54b29d3d-4c36-4e6b-a300-c9788273836e" />
 
 ---
 
